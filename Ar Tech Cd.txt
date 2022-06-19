@@ -1,0 +1,146 @@
+4).Bit logi
+function max_xor(i, hi, k)
+{
+    let xor = 0, maxXor = 0;
+
+    while(i < hi){
+        for (let j = i + 1; j <= hi; j++) {
+            xor = i ^ j;
+            if(k >= xor){
+                maxXor = Math.max(maxXor, xor);
+            }
+        }
+        i++;
+    }
+
+    return maxXor;
+}
+
+let lo = 3, hi = 5, k = 6;
+
+maxi = max_xor(lo, hi, k);
+
+console.log("Maximum XORed Value : ", maxi)
+
+
+
+Movie Ticket
+
+var https = require('https');
+
+function getMovieTitles(substr) {
+    pageNum = 1;
+    let url = 'https://jsonmock.hackerrank.com/api/movies/search/?Title=' + substr;
+    https.get(url, (res) => {
+        res.setEncoding('utf8');
+        res.on('data', function(body) {
+            let dataRec = JSON.parse(body);
+            let movies = dataRec.data;
+            let totPages = dataRec.total_pages;
+            let sortArray = [];
+            movies.map((a) => {
+              sortArray.push(a.Title)
+            })
+            if(totPages >1)
+                {
+                    
+                        for (let i = 2; i <= totPages; i++) {
+                let newPage = i;
+                let url1 = 'https://jsonmock.hackerrank.com/api/movies/search/?Title=' + substr + "&page=" + newPage;
+                https.get(url1, (res) => {
+                    res.setEncoding('utf8');
+                    res.on('data', function(body) {
+                        let newData = JSON.parse(body);
+                        let newMovies = newData.data;
+                        for (let i = 0; i < newMovies.length; i++) {
+                            sortArray.push(newMovies[i].Title);
+                        }
+                        let sorted= sortArray.sort()
+                        let final = sorted.join("\n");
+                        console.log(final);
+                    })
+                })
+            }
+                    
+                    
+                    
+                    
+                }
+            else{
+                let sorted= sortArray.sort()
+                       console.log(sorted.join("\n"));
+            }
+        
+        })
+    })
+}
+
+getMovieTitles('spiderman');
+
+
+Cart
+
+let items = []
+
+  const add = (name) => {
+    items.unshift(name);
+  }
+
+  const remove = (name) => {
+    let index = items.indexOf(name);
+    if (index > -1) {
+        items.splice(index, 1);
+    }
+  }
+
+  const getList = () => {
+    items.map(item => {
+        console.log(item)
+    })
+   }
+
+
+   add('Shirt');
+   add('Shirt');
+   add('Shirt');
+   add('Trouser');
+   add('Shirt');
+   getList();
+   remove('Shirt');
+   getList();
+
+
+
+
+Auto Correction
+
+
+import { useState } from "react";
+
+export default function App() {
+  const [text, setText] = useState("");
+  return (
+    <div className="App">
+      <input
+        value={text}
+        onChange={(e) => {
+          setText(e.target.value);
+          const strArr = text.split(" ");
+          const obj = {
+            "realy": "really",
+            "wierd":"weird"
+          };
+          const objArr = Object.getOwnPropertyNames(obj);
+          strArr.map((d, i) => {
+            const n = objArr.indexOf(d);
+            if (n !== -1) {
+              strArr[i] = obj[objArr[n]];
+              setText(strArr.join(" ")+" ");
+            }
+            return true;
+          });
+        }}
+      />
+    </div>
+  );
+}
